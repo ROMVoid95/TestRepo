@@ -8,7 +8,7 @@ plugins {
 
 task generateGitChangelogTemplateFromFile(type: GitChangelogTask) {
 	group = 'changelog'
- 	fromRepo = file(".");
+ 	settingsFile = file("changelog.json").getAbsolutePath();
  	file = new File("CHANGELOG_file.md");
  	templateContent = file('template.mustache').getText('UTF-8');
 }
