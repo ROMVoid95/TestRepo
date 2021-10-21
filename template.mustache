@@ -17,6 +17,7 @@
 	{{#commits}}
 		{{#ifCommitType . type='fix'}}
   - {{#eachCommitScope .}} **{{.}}** {{/eachCommitScope}} {{{commitDescription .}}} ([Link](https://gitlab.com/ROMVoid95/TestRepo/commit/{{hash}}))
+
     {{#messageBodyItems}} 
     - {{.}} 
     {{/messageBodyItems}}
