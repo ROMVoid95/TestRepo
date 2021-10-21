@@ -1,0 +1,14 @@
+import se.bjurr.gitchangelog.plugin.gradle.GitChangelogTask;
+
+plugins {
+	id 'java'
+	id 'eclipse'
+  	id "se.bjurr.gitchangelog.git-changelog-gradle-plugin" version "1.71.4"
+}
+
+task generateGitChangelogTemplateFromFile(type: GitChangelogTask) {
+	group = 'changelog'
+ 	fromRepo = file(".");
+ 	file = new File("CHANGELOG_file.md");
+ 	templateContent = file('template.mustache').getText('UTF-8');
+}
