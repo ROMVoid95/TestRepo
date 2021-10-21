@@ -6,8 +6,8 @@
 ### Features
 	{{#commits}}
 		{{#ifCommitType . type='feat'}}
-  - {{#eachCommitScope .}} **{{.}}** {{/eachCommitScope}} {{{commitDescription .}}} ([Link](https://gitlab.com/ROMVoid95/TestRepo/commit/{{hash}}))
-    - {{#messageBodyItems}} {{.}} {{/messageBodyItems}}
+	- {{#eachCommitScope .}} **{{.}}** {{/eachCommitScope}} {{{commitDescription .}}} ([Link](https://gitlab.com/ROMVoid95/TestRepo/commit/{{hash}}))
+		- {{#messageBodyItems}} {{.}} {{/messageBodyItems}}
 		{{/ifCommitType}}
 	{{/commits}}
 {{/ifContainsType}}
@@ -16,10 +16,9 @@
 ### Bug Fixes
 	{{#commits}}
 		{{#ifCommitType . type='fix'}}
-  - {{#eachCommitScope .}} **{{.}}** {{/eachCommitScope}} {{{commitDescription .}}} ([Link](https://gitlab.com/ROMVoid95/TestRepo/commit/{{hash}}))
-
+	- {{#eachCommitScope .}} **{{.}}** {{/eachCommitScope}} {{{commitDescription .}}} ([Link](https://gitlab.com/ROMVoid95/TestRepo/commit/{{hash}}))
     {{#messageBodyItems}} 
-    - {{.}} 
+		- {{.}} 
     {{/messageBodyItems}}
 		{{/ifCommitType}}
 	{{/commits}}
