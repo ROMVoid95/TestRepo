@@ -4,7 +4,7 @@ plugins {
   	id "se.bjurr.gitchangelog.git-changelog-gradle-plugin" version "1.71.4"
 }
 
-task generateGitChangelogTemplateFromFile(type: se.bjurr.gitchangelog.plugin.gradle.GitChangelogTask) {
+task genTemplate1(type: se.bjurr.gitchangelog.plugin.gradle.GitChangelogTask) {
 	group = 'changelog'
 	fromRepo = file(".");
  	settingsFile = file("changelog.json").getAbsolutePath();
@@ -12,12 +12,33 @@ task generateGitChangelogTemplateFromFile(type: se.bjurr.gitchangelog.plugin.gra
  	templateContent = file('template.mustache').getText('UTF-8');
 }
 
-tasks.register("generateChangelogs") {
- doLast { }
+task genTemplate2(type: se.bjurr.gitchangelog.plugin.gradle.GitChangelogTask) {
+	group = 'changelog'
+	fromRepo = file(".");
+ 	settingsFile = file("changelog.json").getAbsolutePath();
+ 	file = new File("${projectDir}/CHANGELOG.html");
+ 	templateContent = file('html.mustache').getText('UTF-8');
 }
 
-generateChangelogs.dependsOn {
-  tasks.findAll { task -> task.name.startsWith('generateGit') }
+def nextVersion = se.bjurr.gitchangelog.api.GitChangelogApi.gitChangelogApiBuilder()
+  .withFromRepo("${projectDir}")
+  .withToRef("refs/heads/master")
+  .withSemanticMajorVersionPattern("^[Bb]reaking")
+  .withSemanticMinorVersionPattern("[Ff]eature")
+  .getNextSemanticVersion();
+
+println "Next version:" + nextVersion.toString();
+println " Major:" + nextVersion.getMajor();
+println " Minor:" + nextVersion.getMinor();
+println " Patch:" + nextVersion.getPatch();
+
+tasks.register("makeChangelogs") {
+	group = 'changelog'
+	doLast { }
+}
+
+makeChangelogs.dependsOn {
+  tasks.findAll { task -> task.name.startsWith('gen') }
 }
 
 sourceSets {
