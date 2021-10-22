@@ -7,40 +7,11 @@ plugins {
 task genTemplate1(type: se.bjurr.gitchangelog.plugin.gradle.GitChangelogTask) {
 	group = 'changelog'
 	fromRepo = file(".");
- 	settingsFile = file("changelog.json").getAbsolutePath();
+	settingsFile = file("changelog.json").getAbsolutePath();
  	file = new File("${projectDir}/CHANGELOG_file.md");
  	templateContent = file('template.mustache').getText('UTF-8');
 }
 
-task genTemplate2(type: se.bjurr.gitchangelog.plugin.gradle.GitChangelogTask) {
-	group = 'changelog'
-	fromRepo = file(".");
- 	settingsFile = file("changelog.json").getAbsolutePath();
- 	file = new File("${projectDir}/CHANGELOG.html");
- 	templateContent = file('html.mustache').getText('UTF-8');
-}
-
-def nextVersion = se.bjurr.gitchangelog.api.GitChangelogApi.gitChangelogApiBuilder()
-  .withFromRepo("${projectDir}")
-  .withToRef("refs/heads/master")
-  .withSemanticMajorVersionPattern("^[Bb]reaking")
-  .withSemanticMinorVersionPattern("[Ff]eature")
-  .getNextSemanticVersion();
-
-println "Next version:" + nextVersion.toString();
-println " Major:" + nextVersion.getMajor();
-println " Minor:" + nextVersion.getMinor();
-println " Patch:" + nextVersion.getPatch();
-
-tasks.register("makeChangelogs") {
-	group = 'changelog'
-	doLast { }
-}
-
-makeChangelogs.dependsOn {
-  tasks.findAll { task -> task.name.startsWith('gen') }
-}
-
 sourceSets {
- main.java.srcDirs = ['src/main/java']
+ 	main.java.srcDirs = ['src/main/java']
 }

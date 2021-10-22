@@ -9,6 +9,11 @@
 
 ### Bug Fixes
 
+-  **script**  Correct package.json ([a0791](https://github.com/ROMVoid95/TestRepo/commit/a07916bc30d9c2d))  
+   - skip
+   - skip
+   - skip
+   - skip
 -  try a different layout ([a22e7](https://github.com/ROMVoid95/TestRepo/commit/a22e7ab3469d15e))  
 -  lets us generate ([dfe34](https://github.com/ROMVoid95/TestRepo/commit/dfe3497817b185f))  
 -  fixed a few things ([932df](https://github.com/ROMVoid95/TestRepo/commit/932dfa3df4b6c71))  
@@ -17,6 +22,11 @@
    - hit something with a whiffle ball bat
 
 ### Other changes
+
+**trymore**
+
+
+[30372](https://github.com/ROMVoid95/TestRepo/commit/30372d146d37d4c) ROM *2021-10-22 01:37:25*
 
 **try**
 
