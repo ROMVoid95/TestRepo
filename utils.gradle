@@ -99,12 +99,7 @@ task release() {
     group = 'script-tasks'
     description = 'Release with version from conventional commits'
     doFirst {
-        def nextVersion = se.bjurr.gitchangelog.api.GitChangelogApi.gitChangelogApiBuilder()
-                .withFromRepo(file('.'))
-                .withSemanticMajorVersionPattern("^[Bb]reak")
-                .withSemanticMinorVersionPattern("^[Ff]eat")
-                .getNextSemanticVersion()
-                .getVersion();
+        def nextVersion = nextVersion()
         logger.lifecycle("Releasing version ${nextVersion}...")
         bumpVersionTo(nextVersion)
     }

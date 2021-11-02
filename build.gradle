@@ -18,7 +18,20 @@ task generateChangelog(type: se.bjurr.gitchangelog.plugin.gradle.GitChangelogTas
     templateContent = file('changelog.mustache').getText('UTF-8');
 }
 
+def nextVersion() {
+	def nextVersion = se.bjurr.gitchangelog.api.GitChangelogApi.gitChangelogApiBuilder()
+	.withFromRepo(file('.'))
+	.withSemanticMajorVersionPattern("^[Bb]reak")
+	.withSemanticMinorVersionPattern("^[Ff]eat")
+	.getNextSemanticVersion()
+	.getVersion();
+	
+	return nextVersion
+}
+
+
 ext {
+	nextVersion = this.&nextVersion
 	artifactsList = []
 	generateChangelog = 'generateChangelog'
 }
