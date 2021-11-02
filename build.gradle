@@ -1,34 +1,28 @@
+import se.bjurr.gitchangelog.plugin.gradle.GitChangelogTask
+
 plugins {
 	id 'java'
 	id 'eclipse'
   	id "se.bjurr.gitchangelog.git-changelog-gradle-plugin" version "1.71.4"
 }
 
-task genTemplate1(type: se.bjurr.gitchangelog.plugin.gradle.GitChangelogTask) {
-	group = 'changelog'
-	fromRepo = file(".");
-	settingsFile = file("changelog.json").getAbsolutePath();
- 	file = new File("${projectDir}/CHANGELOG_file.md");
- 	templateContent = file('template.mustache').getText('UTF-8');
+group = 'io.github.testrepo'
+
+task generateChangelog(type: se.bjurr.gitchangelog.plugin.gradle.GitChangelogTask) {
+    group = 'script-tasks'
+    description = 'Generates Changelog for provided Version'
+
+    fromRepo = file(".");
+    settingsFile = file("changelog.json").getAbsolutePath();
+    file = file("${projectDir}/CHANGELOG-${project.version}.md");
+    templateContent = file('changelog.mustache').getText('UTF-8');
 }
 
-sourceSets {
- 	main.java.srcDirs = ['src/main/java']
+ext {
+	artifactsList = []
+	generateChangelog = 'generateChangelog'
 }
 
-task copyHook(type: Copy) {
-	def hook = file("${rootDir}/.githooks/commit-msg")
-	def toFile = file("${rootDir}/.git/hooks")
-	
-	from hook
-	into toFile
-	
-	doLast {
-		def finalFile = file("${rootDir}/.git/hooks/commit-msg")
-		if(finalFile.exists()) {
-			print("Sucessfuly copied ${finalFile.name} to .git/hooks directory")
-		} else {
-			print("Could not copy commit-msg file to .git/hooks directory")
-		}
-	}
-}
+ext.artifactsList = []
+
+apply from: 'utils.gradle'
