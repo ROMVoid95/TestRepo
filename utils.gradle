@@ -128,6 +128,23 @@ task commitNewVersionTask() {
     }
 }
 
+task addChangelogFileTask() {
+	group = 'script-tasks'
+	description = 'Commits/Tags/Pushes new Version (called by releaseAfterMath Task)'
+	doLast {
+		try {
+			runCommand([
+				'git',
+				'add',
+				'CHANGELOG*.md'
+			])
+		} catch(e) {
+			logger.error("Unable add changelog file", e.getMessage())
+			throw new RuntimeException(e)
+		}
+	}
+}
+
 task commitChangelogTask() {
     group = 'script-tasks'
     description = 'Commits/Pushes new Changelog (called by releaseAfterMath Task)'
@@ -160,6 +177,7 @@ task releaseAfterMath(type: GradleBuild) {
         'publishToMavenLocal',
         'commitNewVersionTask',
         'generateChangelog',
+		'addChangelogFileTask',
         'commitChangelogTask'
     ]
 }
