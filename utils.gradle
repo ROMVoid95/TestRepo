@@ -152,18 +152,6 @@ task commitChangelogTask() {
     }
 }
 
-task pushChangelogTask() {
-	group = 'script-tasks'
-	description = 'Commits/Pushes new Changelog (called by releaseAfterMath Task)'
-	
-	doLast {
-		try {
-			
-		} catch (e) {
-			logger.error("Unable push changelog, skipping that.", e.getMessage())
-		}
-}
-
 task releaseAfterMath(type: GradleBuild) {
     group = 'script-tasks'
     description = 'Runs all tasks for release (called by release Task)'
