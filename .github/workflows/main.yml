@@ -1,0 +1,26 @@
+on:
+  issues:
+    types: [opened]
+jobs:
+  runAction:
+    runs-on: ubuntu-latest
+    steps:
+      - name: create-comment
+        uses: KeisukeYamashita/create-comment@v1
+        with:
+          comment: >
+            <h1 align="center">
+              <a>Repository Unarchived for Capes List Updates Only</a>
+            </h1>
+            <h3 align="center">
+              Use the<a href="https://github.com/TeamGalacticraft/Galacticraft-Legacy/issues"> Galacticraft-Legacy </a>repository for new Issues
+            </h3>
+            <p> 
+
+            ## ⚠ 𝗡𝗢𝗧𝗘 ⚠
+            ### 1.12.2 Issues/Bugs Only
+            - *Issues submitted using older versions will be closed*
+
+            ### Still Using Galacticraft v4.0.2.280 or Lower?
+            - *Make sure you update to the [latest version available](https://www.curseforge.com/minecraft/mc-mods/galacticraft-legacy)*
+            
