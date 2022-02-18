@@ -8,7 +8,7 @@ jobs:
       - name: get author
         id: getIssueAuthor
         env:
-          user: ${{ github.event.issue.user }
+          user: ${{ github.event.issue.user }}
         run: |
           echo "$user"
       - name: create-comment
