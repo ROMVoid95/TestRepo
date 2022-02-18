@@ -5,10 +5,17 @@ jobs:
   runAction:
     runs-on: ubuntu-latest
     steps:
+      - name: get author
+        id: getIssueAuthor
+        env:
+          user: ${{ github.event.issue.user }
+        run: |
+          echo "$user"
       - name: create-comment
         uses: KeisukeYamashita/create-comment@v1
         with:
           comment: >
+            ${{ github.event.issue.user.login }}
             <h1 align="center">
             <a>Repository Unarchived for Capes List Updates Only</a>
             </h1>
