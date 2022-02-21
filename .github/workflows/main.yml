@@ -5,12 +5,6 @@ jobs:
   runAction:
     runs-on: ubuntu-latest
     steps:
-      - name: get author
-        id: getIssueAuthor
-        env:
-          user: ${{ github.event.issue.user }}
-        run: |
-          echo "$user"
       - name: create-comment
         uses: KeisukeYamashita/create-comment@v1
         with:
