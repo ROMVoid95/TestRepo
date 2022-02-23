@@ -16,8 +16,8 @@ body:
       options:
         - Existing
         - New
-      validations:
-        required: true
+    validations:
+      required: true
   - type: textarea
     id: desc
     attributes:
@@ -27,5 +27,5 @@ body:
         information you provide the better!
       value: |
         ...
-      validations:
-        required: true
+    validations:
+      required: true
