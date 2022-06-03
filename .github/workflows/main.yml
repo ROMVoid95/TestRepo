@@ -1,32 +1,54 @@
+name: 'CI'
+
 on:
-  issues:
-    types: [opened]
+  workflow_dispatch:
+  push:
+    branches: [ master ]
+  pull_request:
+    branches: [ master ]
+
 jobs:
-  runAction:
+  build:
+    env:
+      RELEASE: false
+    name: Build
     runs-on: ubuntu-latest
     steps:
-      - name: create-comment
-        uses: KeisukeYamashita/create-comment@v1
-        with:
-          comment: >
-            <h1 align="center">
-            <a>Repository Unarchived for Capes List Updates Only</a>
-            </h1>
-            <h3 align="center">
-            Use the<a href="https://github.com/TeamGalacticraft/Galacticraft-Legacy/issues"> Galacticraft-Legacy </a>repository for new Issues
-            </h3>
-            <p> 
-            <div align="center">
-            <tt>⚠
-            <strong>PLEASE NOTE THE FOLLOWING REGARDING THE GALACTICRAFT-LEGACY REPO AND 1.12.2 UPDATES</strong>
-            ⚠</tt>
-            </div>
-            <h3>1.12.2 Issues/Bugs Only</h3>
-            <blockquote><em>
-            <a href="https://github.com/TeamGalacticraft/Galacticraft-Legacy">Galacticraft-Legacy</a> is only for 1.12.2 updates and issues only. Issues submitted using older versions will be closed
-            </em></blockquote>
-            <h3>Still Using Galacticraft v4.0.2.280 or Lower?</h3>
-            <blockquote><em>
-            Make sure you update to the <a href="https://github.com/TeamGalacticraft/Galacticraft-Legacy">latest version available</a></em></blockquote>
+      - name: 'Checkout'
+        uses: actions/checkout@v2
 
-            
+      - name: Fetch Tags
+        run: git fetch --unshallow --tags
+
+      - name: 'Cache'
+        uses: actions/cache@v2
+        with:
+          path: |
+            ~/.m2
+            ~/.gradle
+          key: ${{ runner.os }}-gradle-${{ hashFiles('build.gradle') }}
+
+      - name: Validate Gradle wrapper
+        uses: gradle/wrapper-validation-action@v1
+
+      - name: 'Setup Java'
+        uses: actions/setup-java@v2
+        with:
+          distribution: 'temurin'
+          java-version: 8
+
+      - name: 'Mark tag as release'
+        if: startsWith(github.ref, 'refs/tags/')
+        run: |
+          echo "RELEASE=true" >> $GITHUB_ENV
+
+      - name: 'Build'
+        run: ./gradlew build --max-workers 1
+
+      - name: 'Set Nexus Release Repository Variable'
+        if: ${{ env.RELEASE == 'true' }}
+        run: echo "RELEASE is TRUE"
+
+      - name: 'Set Nexus Snapshot Repository Variable'
+        if: ${{ env.RELEASE != 'true' }}
+        run: echo "RELEASE is FALSE"
