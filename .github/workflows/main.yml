@@ -12,14 +12,7 @@ jobs:
         uses: actions/checkout@v3
 
       - name: 'Cache'
-        uses: actions/cache@v3
-        with:
-          path: |
-            ~/.m2
-            ~/.gradle
-          key: ${{ runner.os }}-gradle-${{ hashFiles('**/*.gradle*', '**/gradle-wrapper.properties') }}
-          restore-keys: |
-            ${{ runner.os }}-gradle-
+        uses: burrunan/gradle-cache-action@v1
 
       - name: Validate Gradle wrapper
         uses: gradle/wrapper-validation-action@v1
