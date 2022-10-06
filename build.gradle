@@ -18,8 +18,6 @@ task generateChangelog(type: se.bjurr.gitchangelog.plugin.gradle.GitChangelogTas
     templateContent = file('changelog.mustache').getText('UTF-8');
 }
 
-def hello = 'hello'
-
 def nextVersion() {
 	def nextVersion = se.bjurr.gitchangelog.api.GitChangelogApi.gitChangelogApiBuilder()
 	.withFromRepo(file('.'))
