@@ -4,6 +4,8 @@ apply plugin: 'signing'
 apply from: 'keys.gradle'
 loadKeys()
 
+def gello = 'hello'
+
 def runCommand(args, int attempts = 5) {
 	logger.lifecycle("Executing ${args.join(' ')}")
 	def stdout = new ByteArrayOutputStream()
