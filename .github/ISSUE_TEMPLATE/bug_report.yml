@@ -1,48 +1,105 @@
 name: Bug Report
 description: File a bug report
 labels:
-  - 'status: triage'
-  - 'type: bug'
+  - '[Type] Bug Report'
+  - '[Status] Triage'
 body:
   - type: markdown
     attributes:
-      value: Thanks for taking the time to submit a bug report!
-  - type: markdown
-    attributes:
       value: >-
-        Please note that support for compiling the mod is not currently provided.
+        NOTE: No support for compiling the project will be provided.
 
-        For help with Galacticraft 4 and below, please use [TeamGalacticraft/Galacticraft-Legacy](https://github.com/TeamGalacticraft/Galacticraft-Legacy).
+        For help with Galacticraft 5, please use [TeamGalacticraft/Galacticraft](https://github.com/TeamGalacticraft/Galacticraft).
 
         For general Galacticraft help and support visit the [Galacticraft Central Discord](http://discord.galacticraftcentral.com/)
   - type: dropdown
-    id: modloader
+    id: forge-version
     attributes:
-      label: Mod Loader
-      description: Which mod loader are you using?
+      label: Forge Version
       options:
-        - Fabric
-        - Forge (NYI)
+        - 14.23.5.2860
+        - 14.23.5.2859
+        - 14.23.5.2858
+        - 14.23.5.2857
+        - 14.23.5.2856
+        - 14.23.5.2855
+        - 14.23.5.2854
+        - 14.23.5.2852
+        - 14.23.5.2851
+        - 14.23.5.2847
+        - 14.23.5.2846
+        - 14.23.5.2845
+        - 14.23.5.2844
+        - 14.23.5.2843
+        - 14.23.5.2842
+        - 14.23.5.2841
+        - 14.23.5.2840
+        - 14.23.5.2839
+        - 14.23.5.2838
+        - 14.23.5.2837
+        - 14.23.5.2836
+        - 14.23.5.2835
+        - 14.23.5.2834
+        - 14.23.5.2833
+        - 14.23.5.2832
+        - 14.23.5.2831
+        - 14.23.5.2830
+        - 14.23.5.2829
+        - 14.23.5.2828
+        - 14.23.5.2827
+        - 14.23.5.2826
+        - 14.23.5.2825
+        - 14.23.5.2824
+        - 14.23.5.2823
+        - 14.23.5.2822
+        - 14.23.5.2821
+        - 14.23.5.2820
+        - 14.23.5.2819
+        - 14.23.5.2818
+        - 14.23.5.2817
+        - 14.23.5.2816
+        - 14.23.5.2815
+        - 14.23.5.2814
+        - 14.23.5.2813
+        - 14.23.5.2812
+        - 14.23.5.2811
+        - 14.23.5.2810
+        - 14.23.5.2809
+        - 14.23.5.2808
+        - 14.23.5.2807
+        - 14.23.5.2806
+        - 14.23.5.2805
+        - 14.23.5.2804
+        - 14.23.5.2803
+        - 14.23.5.2802
+        - 14.23.5.2801
+        - 14.23.5.2800
     validations:
       required: true
+  - type: dropdown
+    id: version-validation
+    attributes:
+      label: Are you using version 4.0.2.282 or Higher?
+      description: If your answer is `No` please download the latest version and first check if the issue is still present.
+      options:
+        - Yes
+        - No
   - type: input
     id: version
     attributes:
-      label: Version Information
-      description: What version (commit hash or branch) of Galacticraft are you using?
-      placeholder: 4cb9a5d
+      label: Galacticraft Version
+      placeholder: "4.0.2.282 or Higher"
     validations:
       required: true
-  - type: input
+  - type: textarea
     id: logs
     attributes:
       label: Log or Crash Report
       description: >-
-        Please upload your log (latest.log or crash report) to [Github
-        Gist](https://gist.github.com/)
-      placeholder: 'https://gist.github.com/ghost/1a79a4d60de6718e8e5b326e338ae533'
-    validations:
-      required: true
+        Please upload your log (latest.log and/or crash report) to [Github
+        Gist](https://gist.github.com/) then paste the gist url here, you 
+        can paste as many links as needed
+      placeholder: 'https://gist.github.com/ROMVoid95/9392b3f0f7b44f9732087007aaa95e32'
   - type: textarea
     id: repro
     attributes:
@@ -51,7 +108,8 @@ body:
       value: |
         1. Do this
         2. Do that
-        3. Crash!
+        3. Crash/Bug
         ...
     validations:
       required: true
+      
