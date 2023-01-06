@@ -1,7 +1,8 @@
 name: 'CI'
 
 on:
-  workflow_dispatch:
+  issues:
+    types: [opened]
 
 jobs:
   build:
@@ -9,47 +10,25 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: 'Checkout'
-        uses: actions/checkout@v3
-
-      - name: 'Cache'
-        uses: burrunan/gradle-cache-action@v1
+        uses: peter-evans/close-issue@v2
         with:
-          gradle-build-scan-report: false
-          gradle-distribution-sha-256-sum-warning: false
-
-      - name: Validate Gradle wrapper
-        uses: gradle/wrapper-validation-action@v1
-
-      - name: 'Setup Java'
-        uses: actions/setup-java@v3
-        with:
-          distribution: 'temurin'
-          java-version: 17
-          cache: 'gradle'
-
-      - name: 'Build'
-        run: ./gradlew build
-
-      - name: Decode
-        run: |
-          echo "${{secrets.SIGNING_SECRET_KEY_RING_FILE}}" > ~/.gradle/secring.gpg.b64
-          base64 -d ~/.gradle/secring.gpg.b64 > ~/.gradle/secring.gpg
-
-      - name: 'Deploy to Nexus Snapshots'
-        env:
-          signing.keyId: ${{secrets.GPG_PRIVATE_KEY}}
-          signing.password: ${{secrets.GPG_PRIVATE_KEY_PASSPHRASE}}
-          signing.secretKeyRingFile: $(echo ~/.gradle/secring.gpg)
-          NEXUS_USER: ${{ secrets.NEXUS_USER }}
-          NEXUS_PASSWORD: ${{ secrets.NEXUS_PASSWORD }}
-        run: ./gradlew publishGalacticraftPublicationToSnapshotsRepository
-
-      - name: Capture build artifacts
-        if: ${{ env.RELEASE != 'true' }}
-        uses: actions/upload-artifact@v3.1.0
-        with:
-          name: Galacticraft-Legacy_snapshot-preview
-          path: |
-            build/libs/
-            !build/libs/*-deobf.jar
-            !build/libs/*-sources.jar
+          comment: >
+            <h1 align="center">
+            <a>Repository Unarchived for Capes List Updates Only</a>
+            </h1>
+            <h3 align="center">
+            Use the<a href="https://github.com/TeamGalacticraft/Galacticraft-Legacy/issues"> Galacticraft-Legacy </a>repository for new Issues
+            </h3>
+            <p> 
+            <div align="center">
+            <tt>⚠
+            <strong>PLEASE NOTE THE FOLLOWING REGARDING THE GALACTICRAFT-LEGACY REPO AND 1.12.2 UPDATES</strong>
+            ⚠</tt>
+            </div>
+            <h3>1.12.2 Issues/Bugs Only</h3>
+            <blockquote><em>
+            <a href="https://github.com/TeamGalacticraft/Galacticraft-Legacy">Galacticraft-Legacy</a> is for 1.12.2 updates and issues only. Issues submitted using older versions will be closed
+            </em></blockquote>
+            <h3>Still Using Galacticraft v4.0.2.280 or Lower?</h3>
+            <blockquote><em>
+            Make sure you update to the latest available version. Available on <a href="https://www.curseforge.com/minecraft/mc-mods/galacticraft-legacy">CurseForge</a> & <a href="https://modrinth.com/mod/galacticraft-legacy">Modrinth</a></em></blockquote>
