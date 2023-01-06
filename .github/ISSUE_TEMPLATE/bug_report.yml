@@ -2,7 +2,6 @@ name: Bug Report
 description: File a bug report
 labels:
   - '[Type] Bug Report'
-  - '[Status] Triage'
 body:
   - type: markdown
     attributes:
