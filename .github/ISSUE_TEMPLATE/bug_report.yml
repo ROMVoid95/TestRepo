@@ -82,8 +82,8 @@ body:
       label: Are you using version 4.0.2.282 or Higher?
       description: If your answer is `No` please download the latest version and first check if the issue is still present.
       options:
-        - Yes
-        - No
+        - "Yes"
+        - "No"
   - type: input
     id: version
     attributes:
