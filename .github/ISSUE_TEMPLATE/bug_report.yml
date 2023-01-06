@@ -82,8 +82,8 @@ body:
       description: >-
         *If your answer is `No` please download the latest version and first check if the issue is still present*
       options:
-        - "Yes"
         - "No"
+        - "Yes"
     validations:
       required: true
   - type: input
