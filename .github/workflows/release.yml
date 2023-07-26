@@ -1,0 +1,12 @@
+name: 'Release'
+on:
+  release:
+    types: [published]
+  
+jobs:
+  parse:
+    runs-on: ubuntu-latest
+    steps:
+    - name: echo
+      run: echo $GITHUB_REF
+  
