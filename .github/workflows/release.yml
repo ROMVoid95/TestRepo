@@ -22,7 +22,7 @@ jobs:
     if: ${{ always() }}
     steps:
       - name: Notify
-        uses: ROMVoid95/discord-webhook@1.0.0
+        uses: ROMVoid95/discord-webhook@1.0.1
         with:
           github-token: ${{ secrets.GITHUB_TOKEN }}
           discord-webhook: 'https://discord.com/api/webhooks/1145066081401188362/8MpUdoNciL4a8sn_6mJPPyfk-vS3gzvmva9ftTYgfIfA1XyDZQChKBAwcMjJzsrFT1PR'
