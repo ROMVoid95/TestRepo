@@ -1,12 +1,28 @@
 name: 'Release'
 on:
-  release:
-    types: [published]
+  push:
+  workflow_dispatch:
   
 jobs:
   parse:
     runs-on: ubuntu-latest
     steps:
-    - name: echo
-      run: echo $GITHUB_REF_NAME
-  
+    - run: echo StepOne
+  something:
+    runs-on: ubuntu-latest
+    steps:
+    - run: echo Stepsomething
+
+  notify:
+    name: Discord Notification
+    runs-on: ubuntu-latest
+    needs:
+      - parse
+      - something
+    if: ${{ always() }}
+    steps:
+      - name: Notify
+        uses: ROMVoid95/discord-webhook@1.0.0
+        with:
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          discord-webhook: 'https://discord.com/api/webhooks/1145066081401188362/8MpUdoNciL4a8sn_6mJPPyfk-vS3gzvmva9ftTYgfIfA1XyDZQChKBAwcMjJzsrFT1PR'
