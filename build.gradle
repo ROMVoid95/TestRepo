@@ -1,41 +1,7 @@
-import se.bjurr.gitchangelog.plugin.gradle.GitChangelogTask
-
 plugins {
 	id 'java'
 	id 'eclipse'
-  	id "se.bjurr.gitchangelog.git-changelog-gradle-plugin" version "1.71.4"
+
 }
 
 group = 'io.github.testrepo'
-
-task generateChangelog(type: se.bjurr.gitchangelog.plugin.gradle.GitChangelogTask) {
-    group = 'script-tasks'
-    description = 'Generates Changelog for provided Version'
-
-    fromRepo = file(".");
-    settingsFile = file("changelog.json").getAbsolutePath();
-    file = file("${projectDir}/CHANGELOG-${project.version}.md");
-    templateContent = file('changelog.mustache').getText('UTF-8');
-}
-
-def nextVersion() {
-	def nextVersion = se.bjurr.gitchangelog.api.GitChangelogApi.gitChangelogApiBuilder()
-	.withFromRepo(file('.'))
-	.withSemanticMajorVersionPattern("^[Bb]reak")
-	.withSemanticMinorVersionPattern("^[Ff]eat")
-	.getNextSemanticVersion()
-	.getVersion();
-	
-	return nextVersion
-}
-
-
-ext {
-	nextVersion = this.&nextVersion
-	artifactsList = []
-	generateChangelog = 'generateChangelog'
-}
-
-ext.artifactsList = []
-
-apply from: 'utils.gradle'
