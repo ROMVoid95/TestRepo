@@ -4,12 +4,24 @@ on:
     types: [published]
   
 jobs:
-  parse:
+  build:
     runs-on: ubuntu-latest
+    name: Build & Compile 
     steps:
-    - run: echo "GITHUB_REF - $GITHUB_REF"
-    - run: echo "GITHUB_REF_TYPE - $GITHUB_REF_TYPE"
-    - run: echo "GITHUB_REF_NAME - $GITHUB_REF_NAME"
-    - run: echo "github.ref - ${{ github.ref }}"
-    - run: echo "github.ref.type - ${{ github.ref.type }}"
-    - run: echo "github.ref.name - ${{ github.ref.name }}"
+    - uses: actions/checkout@v3
+    - run: chmod +x ./gradlew
+    - uses: actions/setup-java@v3
+      with:
+        distribution: temurin
+        java-version: 17
+    - uses: gradle/gradle-build-action@v2
+      id: compile
+      with:
+        arguments: build -Pversion=${{ github.ref_name }}
+
+    - name: Capture build artifacts
+      uses: actions/upload-artifact@v3
+      with:
+        path: |
+          build/libs/*.jar
+          
