@@ -1,12 +1,14 @@
 name: 'Release'
 on:
-  release:
-  push:
-  workflow_dispatch:
+  release: [published]
   
 jobs:
   parse:
     runs-on: ubuntu-latest
     steps:
-    - run: echo "GITHUB_REF- $GITHUB_REF"
-    - run: echo "GITHUB_REF_NAME- $GITHUB_REF_NAME"
+    - run: echo "GITHUB_REF - $GITHUB_REF"
+    - run: echo "GITHUB_REF_TYPE - $GITHUB_REF_TYPE"
+    - run: echo "GITHUB_REF_NAME - $GITHUB_REF_NAME"
+    - run: echo "github.ref - ${{ github.ref }}"
+    - run: echo "github.ref.type - ${{ github.ref.type }}"
+    - run: echo "github.ref.name - ${{ github.ref.name }}"
