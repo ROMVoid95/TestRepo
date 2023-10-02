@@ -8,5 +8,5 @@ jobs:
   parse:
     runs-on: ubuntu-latest
     steps:
-    - run: echo "GITHUB_REF- $env:GITHUB_REF"
-    - run: echo "GITHUB_REF_NAME- $env:GITHUB_REF_NAME"
+    - run: echo "GITHUB_REF- $GITHUB_REF"
+    - run: echo "GITHUB_REF_NAME- $GITHUB_REF_NAME"
